@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Animator _animator;
@@ -13,8 +10,9 @@ public class Player : MonoBehaviour
     private float speed = 2f;
     private Rigidbody _rigidbody;
     private Vector3 move;
-    
-    
+    public int lives = 10;
+    public Text txtLives;
+
 
     private void FixedUpdate()
     {
@@ -46,6 +44,7 @@ public class Player : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         floorMask = LayerMask.GetMask("Floor");
+        txtLives.text = "Lives: "+lives.ToString();
     }
 
     void MyRotation()
@@ -69,8 +68,13 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-     _animator.SetTrigger("death");
-     GetComponent<CapsuleCollider>().isTrigger = true;
-     GetComponent<CapsuleCollider>().enabled = false;
+        lives -=1;
+        txtLives.text = "Lives: " + lives.ToString();
+        if (lives <= 0)
+        {
+            _animator.SetTrigger("death");
+            GetComponent<CapsuleCollider>().isTrigger = true;
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
     }
 } 

@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     //timer para nuestro ataques 
     private float timer;
     private float timerAttack=2f;
-    
+
     
     
     
@@ -62,10 +62,17 @@ public class Enemy : MonoBehaviour
 
     void Attack()
     {
+        
         timer = 0f;
-        _player.Attack();
-        playerDeath = true;
-        _animator.SetTrigger("eat");
+        if (_player.lives > 0)
+        {
+            _player.Attack();
+        }
+        else
+        { 
+            playerDeath = true;
+            _animator.SetTrigger("eat");
+        }
     }
     
     private void OnCollisionEnter(Collision collision)
