@@ -66,4 +66,11 @@ public class Player : MonoBehaviour
     {
         
     }
-}
+
+    public void Attack()
+    {
+     _animator.SetTrigger("death");
+     GetComponent<CapsuleCollider>().isTrigger = true;
+     GetComponent<CapsuleCollider>().enabled = false;
+    }
+} 
