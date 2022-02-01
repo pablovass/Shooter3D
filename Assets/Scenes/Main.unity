@@ -5393,7 +5393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0d44752c9fa72b44b8c67895f6bcaeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 10
+  lives: 2
   txtLives: {fileID: 1459283728}
 --- !u!54 &2082583803
 Rigidbody:

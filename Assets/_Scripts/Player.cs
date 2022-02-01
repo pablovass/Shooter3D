@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private Animator _animator;
@@ -12,7 +14,8 @@ public class Player : MonoBehaviour
     private Vector3 move;
     public int lives = 10;
     public Text txtLives;
-
+    private float timeLimit = 7f;
+    
 
     private void FixedUpdate()
     {
@@ -22,6 +25,21 @@ public class Player : MonoBehaviour
         Animation(h,v);
         MyRotation();
         Moving(h,v);
+    }
+
+    void Update()
+    {
+        if (lives <= 0)
+        {
+            if (timeLimit > 1)
+            {
+                timeLimit -= Time.deltaTime;
+            }
+            else
+            {
+                SceneManager.LoadScene("GameOver");
+            }
+        }
     }
 
     void Animation(float h, float v)
@@ -43,7 +61,7 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
-        floorMask = LayerMask.GetMask("Floor");
+        floorMask = LayerMask.GetMask("Floor"); 
         txtLives.text = "Lives: "+lives.ToString();
     }
 
@@ -60,11 +78,7 @@ public class Player : MonoBehaviour
             _rigidbody.MoveRotation(newRotation);
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void Attack()
     {
