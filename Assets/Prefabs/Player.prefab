@@ -1111,7 +1111,7 @@ GameObject:
   - component: {fileID: 4081494236625732218}
   - component: {fileID: 7945561089546934272}
   m_Layer: 0
-  m_Name: Male_01_V01
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
