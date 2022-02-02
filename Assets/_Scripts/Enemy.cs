@@ -41,8 +41,8 @@ public class Enemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
+    {/*
+    if (Input.GetKeyDown(KeyCode.P))
         {
             _animator.SetTrigger("death");
         }
@@ -50,14 +50,19 @@ public class Enemy : MonoBehaviour
         {
             _animator.SetTrigger("eat");
         }
-
-        _navMeshAgent.SetDestination(_player.transform.position);
-
-        timer += Time.deltaTime;
-        if (timer >= timerAttack && playerRange&& playerDeath==false)
+    */
+        if (playerDeath == false)
         {
-            Attack();    
+            _navMeshAgent.SetDestination(_player.transform.position);
+
+            timer += Time.deltaTime;
+            if (timer >= timerAttack && playerRange&& playerDeath==false)
+            {
+                Attack();    
+            }    
         }
+
+        
     }
 
     void Attack()
@@ -96,7 +101,13 @@ public class Enemy : MonoBehaviour
 
     public void takeDamage()
     {
-        _animator.SetTrigger("death");
+        if (playerDeath == false)
+        {
+            _animator.SetTrigger("death");
+            _navMeshAgent.enabled = false;
+            playerDeath = true;    
+        }
+        
     }
     
 }
