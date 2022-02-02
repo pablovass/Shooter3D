@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     private float timer;
     private float timerAttack=2f;
 
-    
+    private AudioSource audio;
     
     
 
@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
         GameObject playerTMP= GameObject.Find("Player");
@@ -103,6 +104,8 @@ public class Enemy : MonoBehaviour
     {
         if (playerDeath == false)
         {
+            audio.Play();
+            _player.updateZombiesCount();
             _animator.SetTrigger("death");
             _navMeshAgent.enabled = false;
             playerDeath = true;    

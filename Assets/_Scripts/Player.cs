@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -13,8 +13,23 @@ public class Player : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 move;
     public int lives = 10;
+    private int zombies=10;
     public Text txtLives;
+    public Text txtZombies;
     private float timeLimit = 7f;
+    private AudioSource audio;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        audio = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        audio = GetComponent<AudioSource>(); 
+        floorMask = LayerMask.GetMask("Floor"); 
+        txtLives.text = "Lives: "+lives.ToString();
+        txtZombies.text = "Zombies: "+zombies.ToString();
+    }
     
 
     private void FixedUpdate()
@@ -56,21 +71,14 @@ public class Player : MonoBehaviour
      if (_rigidbody)_rigidbody.MovePosition(transform.position+move);
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
-        floorMask = LayerMask.GetMask("Floor"); 
-        txtLives.text = "Lives: "+lives.ToString();
-    }
+    
 
     void MyRotation()
     {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
         if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
-        {
+        { 
             playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0f;
 
@@ -90,5 +98,11 @@ public class Player : MonoBehaviour
             GetComponent<CapsuleCollider>().isTrigger = true;
             GetComponent<CapsuleCollider>().enabled = false;
         }
+    }
+
+    public void updateZombiesCount()
+    {
+        zombies += 1;
+        txtZombies.text = "zombies: "+zombies.ToString();
     }
 } 

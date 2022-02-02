@@ -19,6 +19,7 @@ private int shootableMask;
 private LineRenderer gunLine;
 private Light gunLight;
 private float effectGun = 0.2f;
+private AudioSource audio;
 
 private void Update()
 {
@@ -37,6 +38,7 @@ private void Update()
 // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         shootableMask = LayerMask.GetMask("Shooteable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
@@ -45,6 +47,7 @@ private void Update()
 
     void Shoot()
     {
+        audio.Play();
         timer = 0f;
         gunLight.enabled = true;
         gunLine.enabled = true;
