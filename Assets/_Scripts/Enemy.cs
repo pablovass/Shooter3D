@@ -93,5 +93,10 @@ public class Enemy : MonoBehaviour
         }
        
     }
+
+    public void takeDamage()
+    {
+        _animator.SetTrigger("death");
+    }
     
 }
